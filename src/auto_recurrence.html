@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tehran Davis">
+
+<title>A is for Auto-Recurrence</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="auto_recurrence_files/libs/clipboard/clipboard.min.js"></script>
+<script src="auto_recurrence_files/libs/quarto-html/quarto.js"></script>
+<script src="auto_recurrence_files/libs/quarto-html/popper.min.js"></script>
+<script src="auto_recurrence_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="auto_recurrence_files/libs/quarto-html/anchor.min.js"></script>
+<link href="auto_recurrence_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="auto_recurrence_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="auto_recurrence_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="auto_recurrence_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="auto_recurrence_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">A is for Auto-Recurrence</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tehran Davis </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="what-is-auto-recurrence-quantification-analyis" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-auto-recurrence-quantification-analyis">What is auto Recurrence Quantification Analyis?</h2>
+<p>Recurrence Quantification Analysis (RQA) is a sophisticated technique used to analyze time series data. It’s especially useful when the data under investigation is non-stationary or non-linear. RQA is derived from recurrence plots (RP), which is a graphical representation that demonstrates the times at which a phase space trajectory visits roughly the same area in the phase space. Auto recurrence analysis is simply like playing a game of spot-the-pattern with a single string of data, matching it against itself to find repeating sequences or trends. It’s one of several related techniques, with its siblings, cross recurrence and joint recurrence, exploring relationships between different data sets, while auto recurrence focuses purely on understanding the inner workings of one.</p>
+<p>Here’s a simplified breakdown of how RQA works:</p>
+<section id="recurrence-plots-rp" class="level3">
+<h3 class="anchored" data-anchor-id="recurrence-plots-rp">Recurrence Plots (RP)</h3>
+<ol type="1">
+<li><strong>Phase Space Reconstruction</strong>: Transform the time series data into a multidimensional phase space to represent the dynamical structure of the system.</li>
+<li><strong>Recurrence Plot Creation</strong>: Create a 2D square plot, where each point represents a time where the state of a dynamic system recurs. Specifically, it illustrates when the states at two different times ((i, j)) are close (using a predefined distance metric and threshold).</li>
+</ol>
+</section>
+<section id="recurrence-quantification-analysis-rqa" class="level3">
+<h3 class="anchored" data-anchor-id="recurrence-quantification-analysis-rqa">Recurrence Quantification Analysis (RQA)</h3>
+<p>After obtaining the recurrence plot, RQA quantifies the structures in it by considering several measures. A good place to look is <a href="%22https://juliadynamics.github.io/RecurrenceAnalysis.jl/stable/quantification/#RQA-Measures%22">here</a>. In this project, we will be showing examples with the following measures:</p>
+<ul>
+<li><strong>Recurrence Rate (RR)</strong>: The proportion of recurring points in the recurrence plot.</li>
+<li><strong>Determinism (DET)</strong>: The percentage of recurrence points that form diagonal lines, indicative of deterministic processes in the system.</li>
+<li><strong>Entropy (ENTR)</strong>: Entropy of the line length distributions, providing insights into the complexity of the system dynamics.</li>
+</ul>
+</section>
+<section id="applications" class="level3">
+<h3 class="anchored" data-anchor-id="applications">Applications</h3>
+<p>RQA has diverse applications across various disciplines, such as:</p>
+<ul>
+<li><strong>Biomedical Sciences</strong>: Analyzing heart rate, gait dynamics, etc.</li>
+<li><strong>Finance</strong>: Investigating stock market dynamics.</li>
+<li><strong>Climate Science</strong>: Examining weather pattern shifts.</li>
+<li><strong>Engineering</strong>: Analyzing signal fluctuations in machinery for preventive maintenance.</li>
+</ul>
+</section>
+<section id="advantages-and-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="advantages-and-limitations">Advantages and Limitations</h3>
+<ul>
+<li><strong>Advantages</strong>: Capable of analyzing non-stationary, non-linear, and noisy data; Doesn’t require large datasets.</li>
+<li><strong>Limitations</strong>: Choice of parameters (embedding dimension, delay, distance threshold) can influence the results and can be somewhat arbitrary.</li>
+</ul>
+</section>
+</section>
+<section id="project-exploring-song-lyrics-with-auto-recurrence-quantification-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="project-exploring-song-lyrics-with-auto-recurrence-quantification-analysis">Project: Exploring Song Lyrics with Auto Recurrence Quantification Analysis</h2>
+<p>We’re taking a fresh approach to analyzing song lyrics by using we’re using aRQA to detect patterns and underlying rhythms.</p>
+<p>This project aims to explore the intricacies of song lyrics through the lens of Recurrence Quantification Analysis (RQA). At the intersection of music and mathematics, we can use this tool to decipher patterns, structures, and complexities hidden within the poetic expressions of song lyrics.</p>
+<p>Exploring with song lyrics offers a valuable perspective for RQA exploration. Many of us instinctively recognize patterns in songs, especially when we find ourselves songing along to a catchy chorus. By tapping into this inherent sense of musical structure, we can better appreciate and anticipate the findings RQA brings to the table. Essentially, using the familiar realm of music helps demystify the more technical aspects of RQA.</p>
+<p><strong>Recurrence Rate in Song Lyrics</strong></p>
+<p>The recurrence rate is like our song’s repeatability score. If a song keeps circling back to the same phrases or words (think of catchy choruses), it’ll have a high score. On the other hand, if the lyrics are varied and don’t often repeat, the score will be lower.</p>
+<p><strong>Determinism: Predictable Patterns in Lyrics</strong></p>
+<p>Determinism gauges how much the lyrics of a song follow a recognizable sequence. If the song has lines that feel familiar and seem to follow a regular rhythm or rhyme, it has high determinism. If the lyrics feel more free-flowing, without a clear repeating pattern, that indicates low determinism.</p>
+<p><strong>Entropy: Measuring Lyrical Complexity</strong></p>
+<p>Entropy helps us understand the variety in a song’s lyrical patterns. If there’s a lot of unpredictability in the way words or phrases come back around, that song has high entropy—it keeps you on your toes. But if the song often revisits themes or lines in a more predictable fashion, it has lower entropy, suggesting a more structured, repeated rhythm to the words.</p>
+<div class="cell" data-execution_count="1">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">CSV</span>, <span class="bu">DataFrames</span>, <span class="bu">Random</span>, <span class="bu">TextAnalysis</span>, <span class="bu">Languages</span>, <span class="bu">Statistics</span>, <span class="bu">PyPlot</span>, <span class="bu">Flux</span>, <span class="bu">Tidier</span>, <span class="bu">BSON</span>, <span class="bu">StatsBase</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="2">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>song_data <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="st">"../data/song_lyrics.csv"</span>, DataFrame);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="3">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>playlist <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"The Beatles"</span> <span class="op">=&gt;</span> <span class="st">"Hey Jude"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Rihanna"</span> <span class="op">=&gt;</span> <span class="st">"Desperado"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Neutral Milk Hotel"</span> <span class="op">=&gt;</span> <span class="st">"In the Aeroplane Over the Sea"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Daft Punk"</span> <span class="op">=&gt;</span> <span class="st">"Around the World"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Simon &amp; Garfunkel"</span> <span class="op">=&gt;</span> <span class="st">"The Boxer"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Drake"</span> <span class="op">=&gt;</span> <span class="st">"5 AM in Toronto"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>song_lyrics_df <span class="op">=</span> <span class="fu">DataFrame</span>()</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> artist <span class="kw">in</span> <span class="fu">keys</span>(playlist)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    song_title <span class="op">=</span> playlist[artist]</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># find the row(s) where the artist and title match</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    matching_rows <span class="op">=</span> song_data[(song_data.artist <span class="op">.==</span> artist) <span class="op">.&amp;</span> (song_data.title <span class="op">.==</span> song_title), <span class="op">:</span>]</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># do something with the matching rows</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(<span class="st">"Found </span><span class="sc">$</span>(<span class="fu">size</span>(matching_rows, <span class="fl">1</span>))<span class="st"> matching rows for </span><span class="sc">$</span>artist<span class="st"> - </span><span class="sc">$</span>song_title<span class="st">"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">append!</span>(song_lyrics_df, matching_rows)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>song_lyrics_df <span class="op">=</span> song_lyrics_df[!, [<span class="op">:</span>artist, <span class="op">:</span>title, <span class="op">:</span>lyrics]]</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>CSV.<span class="fu">write</span>(<span class="st">"../data/playlist_lyrics.csv"</span>, song_lyrics_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Found 1 matching rows for Simon &amp; Garfunkel - The Boxer
+Found 1 matching rows for Rihanna - Desperado
+Found 1 matching rows for The Beatles - Hey Jude
+Found 1 matching rows for Drake - 5 AM in Toronto
+Found 1 matching rows for Neutral Milk Hotel - In the Aeroplane Over the Sea
+Found 1 matching rows for Daft Punk - Around the World</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>"../data/playlist_lyrics.csv"</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>song_data <span class="op">=</span> CSV.<span class="fu">read</span>(<span class="st">"../data/playlist_lyrics.csv"</span>, DataFrame);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell" data-execution_count="5">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">lyrics_cleaner</span>(lyrics)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    sd <span class="op">=</span> <span class="fu">StringDocument</span>(lyrics)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    TextAnalysis.<span class="fu">remove_words!</span>(sd, [<span class="st">"Verse"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Pre-Chorus"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Chorus"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Bridge"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Outro"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"Paul McCartney"</span>, <span class="st">"John Lennon"</span>, <span class="st">"George Harrison"</span>])</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    TextAnalysis.<span class="fu">prepare!</span>(sd, strip_non_letters <span class="op">|</span> strip_punctuation)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> TextAnalysis.<span class="fu">text</span>(sd)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> <span class="fu">replace</span>(output, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span> <span class="op">=&gt;</span> <span class="st">" "</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> <span class="fu">replace</span>(output, <span class="st">"  "</span> <span class="op">=&gt;</span> <span class="st">" "</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>lyrics_cleaner (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create an empty Dict to store the artist info</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>track_info <span class="op">=</span> <span class="fu">Dict</span>()</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each row of the DataFrame</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> <span class="fu">eachrow</span>(song_lyrics_df)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the artist name, original lyrics, and cleaned lyrics</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    artist <span class="op">=</span> row.artist</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    song <span class="op">=</span> row.title</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    lyrics <span class="op">=</span> row.lyrics</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    cleaned_lyrics <span class="op">=</span> <span class="fu">lyrics_cleaner</span>(lyrics)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># convert the cleaned lyrics to word numbers using the word_dict</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> <span class="fu">split</span>(cleaned_lyrics)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create word_dictionary:</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    unique_words <span class="op">=</span> <span class="fu">unique</span>(words)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    word_dict <span class="op">=</span> <span class="fu">Dict</span>(unique_words <span class="op">.=&gt;</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(unique_words))</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">#word_num_list = Any[]</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    word_num_list <span class="op">=</span> [word_dict[word] for word <span class="kw">in</span> words]</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add the artist info to the Dict</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    track_info[song] <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"artist"</span> <span class="op">=&gt;</span> artist,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"lyrics"</span> <span class="op">=&gt;</span> lyrics,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"cleaned_lyrics"</span> <span class="op">=&gt;</span> cleaned_lyrics,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"word_series"</span> <span class="op">=&gt;</span> word_num_list)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="arqa-considerations" class="level3">
+<h3 class="anchored" data-anchor-id="arqa-considerations">aRQA Considerations</h3>
+<p>One of the stickier bits of RQA is the choice of parameters. Phase space reconstruction requires us to select an appropriate embedding dimension and delay. Recurrent points are defined as those that fall within a chosen distance threshold, meaning we pick a maximum allowable distance, and when points in our reconstructed phase space are that close (or closer), we consider them recurrent or repeating.</p>
+<p>Fortunately our lyrics example spares us some of this difficulty. When dealing with categorical data (like words) we typically use the raw series as is without phase space reconstruction. This means we don’t have to worry about embedding dimension or delay. We do, however, still need to select a distance threshold. For the purposes of this project, we will use a distance threshold that demands exact matches. This means that we will only consider words that are identical as recurrent. However this doesn’t mean there isn’t room to get creative. For example, we could use a distance threshold that allows for a certain number of phonetic differences, or even semantic differences and relationships. The possibilities are endless.</p>
+<p>Before continuing, I just want to take a quick aside to look at the impact of the radius parameter. A radius parameter too low risks missing important patterns, while a radius parameter too high risks overfitting and missing the forest for the trees. For example let’s take a look at the RP of this steady repeating signal assuming a radius of 0, .5, and 1.5</p>
+<div class="cell" data-execution_count="7">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create a sequence of integers from 1 to 100</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fu">LinRange</span>(<span class="fl">0</span>, <span class="fl">10</span>π, <span class="fl">100</span>) </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># create a sequence that approximates a sine wave</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="fu">sin</span>.(x)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the sine wave</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="auto_recurrence_files/figure-html/cell-8-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>1-element Vector{PyCall.PyObject}:
+ PyObject &lt;matplotlib.lines.Line2D object at 0x15adda500&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">PyPlot</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DynamicalSystems</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a sequence of radii to iterate over</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>radii <span class="op">=</span> [<span class="fl">0</span>, <span class="fl">.25</span>, <span class="fl">1</span>]</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a new figure with subplots of equal size</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> <span class="fu">subplots</span>(<span class="fl">1</span>, <span class="fl">3</span>, figsize<span class="op">=</span>(<span class="fl">9</span>, <span class="fl">3</span>), sharey<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over the radii and create a new plot for each one</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i, radius) <span class="kw">in</span> <span class="fu">enumerate</span>(radii)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a recurrence plot with the current radius</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    RP <span class="op">=</span> <span class="fu">RecurrenceMatrix</span>(y, radius)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    xs, ys <span class="op">=</span> <span class="fu">coordinates</span>(RP)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a square image of the recurrence plot</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#axs[i].imshow(RP, cmap="gray", aspect="equal")</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    axs[i].<span class="fu">scatter</span>(xs, ys, marker<span class="op">=</span><span class="st">"."</span>, s <span class="op">=</span> <span class="fl">1</span>)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># set the plot title and axis labels</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    axs[i].<span class="fu">set_title</span>(<span class="st">"Recurrence Plot (radius = </span><span class="sc">$</span>radius<span class="st">)"</span>)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    axs[i].<span class="fu">set_xlabel</span>(<span class="st">"Time"</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    axs[i].<span class="fu">set_ylabel</span>(<span class="st">"Time"</span>)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="co"># adjust the layout of the subplots and display the figure</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="fu">tight_layout</span>()</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>sys:1: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="auto_recurrence_files/figure-html/cell-9-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>As illustrated in the plots above, the recurrence plot with a radius of 0 appears notably sparse. It primarily displays a single line along the diagonal—termed the “line of incidence.” This results from every point being recurrent with itself, thus representing the original signal without any repeating patterns. For auto-recurrence, this line of incidence also serves as the line of identity, rendering the plot symmetrical around it. As the radius parameter is increased, the density of recurrent points grows, denoting instances where the signal replicates within a defined tolerance (radius). But what qualifies as “too dense”? While it varies based on the data and the specific questions at hand, a general rule of thumb is for recurrent points to comprise about 5-10% of the recurrence plot. Though this serves as a useful benchmark, remember it’s a heuristic. To truly ascertain the optimal radius, experimentation with diverse values to observe resulting variations is key.</p>
+<p>Regarding the subsequent musical example, envision the line of incidence as the song’s lyrics progressing from the start (bottom left) to the end (top right), devoid of repeating patterns. To visualize the repetition within the lyrics, the radius parameter needs to be increased. However, over-increasing could lead to overfitting, potentially obscuring broader insights. In this instance, maintaining a radius of .01 ensures that repeating patterns for each unique word are captured. Note that given our words are assigned integer values, any radius less than 1 will do.</p>
+</section>
+<section id="looking-at-the-lyrics-data" class="level3">
+<h3 class="anchored" data-anchor-id="looking-at-the-lyrics-data">Looking at the lyrics data</h3>
+<p>Here is the resulting recurrence plot for the song “Desperado” by Rihanna. This song has a clear repetitive structure, starting with the chorus introducing the “Desperado”, which then repeats three more times between the two verses and two pre-choruses. The pre-chorus sections stay exactly the same each time: “Gotta get up out of here and You ain’t leaving me behind I know you won’t, ’cause we share common interests”, and the two verses open in a similar way, both starting with “Desperado sitting in an old Monte Carlo.” Phrases like “I don’t wanna be alone” are repeated multiple times, in the choruses and bridge. The repetition of the chorus lyrics, identical pre-choruses, similar verse openings, and phrases like “I don’t wanna be alone” create a predictable structure that emphasizes the song’s themes.</p>
+<div class="cell" data-execution_count="9">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lyrics_series <span class="op">=</span> track_info[<span class="st">"Desperado"</span>][<span class="st">"word_series"</span>];</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>RP <span class="op">=</span> <span class="fu">RecurrenceMatrix</span>(lyrics_series, <span class="fl">.01</span>);</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#using Plots;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># recurrence plot</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>xs, ys <span class="op">=</span> <span class="fu">coordinates</span>(RP);</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>rec_plot <span class="op">=</span> PyPlot.<span class="fu">scatter</span>(xs, ys, s <span class="op">=</span> <span class="fl">1</span>, marker<span class="op">=</span><span class="st">"."</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="auto_recurrence_files/figure-html/cell-10-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Looking the plot above you’ll notice that prominent diagonal lines appear, indicating that the lyrics of the song repeat themselves. The most prominent (circled in red) captures the sequence of lyrics starting in the second verse (about 1:00) that largely mirror the opening sequence. The small gaps in this line are moments when the lyrics diverge.</p>
+<p>Let’s take a look at Hey Jude by the The Beatles. Those familiar with this song will recognize the repetitive structure of the chorus, which repeats the phrase “Hey Jude” multiple times. The verses also have a similar structure, with the first verse opening with “Hey Jude, don’t make it bad” and the second verse opening with “Hey Jude, don’t be afraid.” The bridge is also repetitive, with the phrase “The minute you let her under your skin” repeated multiple times. The chorus is repeated multiple times, and the song ends with a long sequence of “na na na na na na na na” that is repeated over and over.</p>
+<p>Here’s the plot.</p>
+<div class="cell" data-execution_count="10">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DynamicalSystems</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>lyrics_series <span class="op">=</span> track_info[<span class="st">"Hey Jude"</span>][<span class="st">"word_series"</span>];</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>radius <span class="op">=</span> <span class="fl">.01</span>;</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>RP <span class="op">=</span> <span class="fu">RecurrenceMatrix</span>(lyrics_series, radius);</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#using Plots;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># recurrence plot</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>xs, ys <span class="op">=</span> <span class="fu">coordinates</span>(RP);</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>rec_plot <span class="op">=</span> PyPlot.<span class="fu">scatter</span>(xs, ys, s <span class="op">=</span> <span class="fl">1</span>, marker<span class="op">=</span><span class="st">"."</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="auto_recurrence_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>We can clearly see the structure of the sequences of repetition. That grid-looking thing in the upper right… there are you na na na na na na na’s.</p>
+<p>Finally, let’s take a look at “5 AM in Toronto” by Drake. This is a rap song notable for its continuous flow and absence of a traditional chorus.</p>
+<div class="cell" data-execution_count="11">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DynamicalSystems</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>lyrics_series <span class="op">=</span> track_info[<span class="st">"5 AM in Toronto"</span>][<span class="st">"word_series"</span>];</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>radius <span class="op">=</span> <span class="fl">.01</span>;</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>RP <span class="op">=</span> <span class="fu">RecurrenceMatrix</span>(lyrics_series, radius);</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#using Plots;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># recurrence plot</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>xs, ys <span class="op">=</span> <span class="fu">coordinates</span>(RP);</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>rec_plot <span class="op">=</span> PyPlot.<span class="fu">scatter</span>(xs, ys, s <span class="op">=</span> <span class="fl">1</span>, marker<span class="op">=</span><span class="st">"."</span>);</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>rqa_metrics[<span class="op">:</span>RR]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="auto_recurrence_files/figure-html/cell-12-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>0.006251591545709193</code></pre>
+</div>
+</div>
+<p>Let’s take a look at what we get when we get various aRQA measures from each of these plots.</p>
+<div class="cell" data-execution_count="40">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>playlist <span class="op">=</span> [<span class="st">"Desperado"</span>, <span class="st">"Hey Jude"</span>, <span class="st">"5 AM in Toronto"</span>]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>playlist_rqa <span class="op">=</span> <span class="fu">DataFrame</span>(title<span class="op">=</span>[], RR<span class="op">=</span>[], DET<span class="op">=</span>[], ENTR<span class="op">=</span>[])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> song <span class="kw">in</span> playlist</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    lyrics <span class="op">=</span> track_info[song][<span class="st">"word_series"</span>]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    RP <span class="op">=</span> <span class="fu">RecurrenceMatrix</span>(lyrics, <span class="fl">.01</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    rqa_metrics <span class="op">=</span> <span class="fu">rqa</span>(RP; lmin <span class="op">=</span> <span class="fl">2</span>, thieller <span class="op">=</span> <span class="fl">0</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    new_row <span class="op">=</span> <span class="fu">DataFrame</span>(title <span class="op">=</span> song, RR <span class="op">=</span> rqa_metrics[<span class="op">:</span>RR], DET <span class="op">=</span> rqa_metrics[<span class="op">:</span>DET], ENTR <span class="op">=</span> rqa_metrics[<span class="op">:</span>ENTR])</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">append!</span>(playlist_rqa, new_row)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>playlist_rqa</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="40">
+<div><div style="float: left;"><span>3×4 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
+<table class="data-frame table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header header">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Row</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">title</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">RR</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DET</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">ENTR</th>
+</tr>
+<tr class="odd subheader headerLastRow">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Any">Any</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Any">Any</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Any">Any</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Any">Any</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">1</td>
+<td style="text-align: left;">Desperado</td>
+<td style="text-align: left;">0.0147901</td>
+<td style="text-align: left;">0.579848</td>
+<td style="text-align: left;">1.50591</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">2</td>
+<td style="text-align: left;">Hey Jude</td>
+<td style="text-align: left;">0.147133</td>
+<td style="text-align: left;">0.923981</td>
+<td style="text-align: left;">2.09313</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">3</td>
+<td style="text-align: left;">5 AM in Toronto</td>
+<td style="text-align: left;">0.00625159</td>
+<td style="text-align: left;">0.127064</td>
+<td style="text-align: left;">0.521438</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="42">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assuming your DataFrame is called "means_table"</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># create a figure with three subplots</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> <span class="fu">subplots</span>(<span class="fl">1</span>, <span class="fl">3</span>, figsize<span class="op">=</span>(<span class="fl">12</span>, <span class="fl">4</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean values for RR in the first subplot</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">1</span>].<span class="fu">bar</span>(playlist_rqa.title, playlist_rqa.RR)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">1</span>].<span class="fu">set_title</span>(<span class="st">"RR"</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean values for DET in the second subplot</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">2</span>].<span class="fu">bar</span>(playlist_rqa.title, playlist_rqa.DET)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">2</span>].<span class="fu">set_title</span>(<span class="st">"DET"</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean values for ENTR in the third subplot</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">3</span>].<span class="fu">bar</span>(playlist_rqa.title, playlist_rqa.ENTR)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">3</span>].<span class="fu">set_title</span>(<span class="st">"ENTR"</span>)</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co"># set the plot title and axis labels</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>fig.<span class="fu">suptitle</span>(<span class="st">"RQA Metrics by Song"</span>)</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>fig.<span class="fu">text</span>(<span class="fl">0.04</span>, <span class="fl">0.5</span>, <span class="st">"Value"</span>, va<span class="op">=</span><span class="st">"center"</span>, rotation<span class="op">=</span><span class="st">"vertical"</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a><span class="co"># display the plot</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="auto_recurrence_files/figure-html/cell-14-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Looking at the resulting measures, it’s pretty apparent that aRQA provides very different measures for RR, DET, and ENTR for each song. Let’s unpack this a bit:</p>
+<ul>
+<li>As we might expect, Hey Jude has by far the highest recurrence rate (RR), suggesting that it has the most repeating lyrics. This is consistent with our observations of the song’s structure and most likely inflated by the long sequence of “na na na na na na na na” at the end of the song. 5 AM in Toronto has the least, again consitent with what we know from the Recurrence Plot and the structure of repeating lyrics (or lack thereof) in the song.</li>
+<li>Turning our attention to DET, we see again the Hey Jude has the highest score. Whereas RR simply asks if a given word repeats, DET captures the percentage of repeating words that form repeating sequences. Think of it as saying “okay, I’ve found a repeating word, now is it part of a sequence” For example, in this simple sentence “Easy come, easy go” the word “easy” repeats twice, but in either case it’s followed by a different work. Contrast this to “The harder they come, the harder they fall” where “the” not only repeats twice, and in both cases it’s followed by the words “harder” and “they” forming a three word sequence. This three word sequence would be visualized by a diagonal line on the Recurrence plot and would be captured by DET. This is why Hey Jude has a high DET score, because it has many repeating sequences. 5 AM in Toronto has the lowest DET score, again consistent with the lack of repeating sequences in the song.</li>
+<li>Finally, let’s consider entropy (ENTR). ENTR captures the complexity of the repeating sequences. For example, a song that repeats the same three words over and over again (I’m looking at you Daft Punk!) would have a low ENTR score, because it’s not very complex. At the same time it would very likely have a high RR and DET. On the other hand, a song that repeats many different sequences would have a high ENTR score.</li>
+</ul>
+<p>Given this, lets add a few more songs to our analysis and see what we get. I’m going to add “The Boxer” by Simon and Garfunkel, “In the Aeroplane Over the Sea” by Neutral Milk Hotel and “Around the World” by Daft Punk. If you are familiar with these songs, what might you predict about their structure. If you’re not, go have a listen (and try not to judge my musical tastes) and come back.</p>
+<div class="cell" data-execution_count="43">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>playlist <span class="op">=</span> [<span class="st">"Desperado"</span>, <span class="st">"Hey Jude"</span>, <span class="st">"5 AM in Toronto"</span>, <span class="st">"The Boxer"</span>, <span class="st">"In the Aeroplane Over the Sea"</span>, <span class="st">"Around the World"</span>]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>playlist_rqa <span class="op">=</span> <span class="fu">DataFrame</span>(title<span class="op">=</span>[], RR<span class="op">=</span>[], DET<span class="op">=</span>[], ENTR<span class="op">=</span>[])</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> song <span class="kw">in</span> playlist</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    lyrics <span class="op">=</span> track_info[song][<span class="st">"word_series"</span>]</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    RP <span class="op">=</span> <span class="fu">RecurrenceMatrix</span>(lyrics, <span class="fl">.01</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    rqa_metrics <span class="op">=</span> <span class="fu">rqa</span>(RP; lmin <span class="op">=</span> <span class="fl">2</span>, thieller <span class="op">=</span> <span class="fl">0</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    new_row <span class="op">=</span> <span class="fu">DataFrame</span>(title <span class="op">=</span> song, RR <span class="op">=</span> rqa_metrics[<span class="op">:</span>RR], DET <span class="op">=</span> rqa_metrics[<span class="op">:</span>DET], ENTR <span class="op">=</span> rqa_metrics[<span class="op">:</span>ENTR])</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">append!</span>(playlist_rqa, new_row)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>playlist_rqa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="43">
+<div><div style="float: left;"><span>6×4 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
+<table class="data-frame table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header header">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Row</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">title</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">RR</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DET</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">ENTR</th>
+</tr>
+<tr class="odd subheader headerLastRow">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Any">Any</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Any">Any</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Any">Any</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Any">Any</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">1</td>
+<td style="text-align: left;">Desperado</td>
+<td style="text-align: left;">0.0147901</td>
+<td style="text-align: left;">0.579848</td>
+<td style="text-align: left;">1.50591</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">2</td>
+<td style="text-align: left;">Hey Jude</td>
+<td style="text-align: left;">0.147133</td>
+<td style="text-align: left;">0.923981</td>
+<td style="text-align: left;">2.09313</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">3</td>
+<td style="text-align: left;">5 AM in Toronto</td>
+<td style="text-align: left;">0.00625159</td>
+<td style="text-align: left;">0.127064</td>
+<td style="text-align: left;">0.521438</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">4</td>
+<td style="text-align: left;">The Boxer</td>
+<td style="text-align: left;">0.11743</td>
+<td style="text-align: left;">0.863147</td>
+<td style="text-align: left;">1.35108</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">5</td>
+<td style="text-align: left;">In the Aeroplane Over the Sea</td>
+<td style="text-align: left;">0.00793577</td>
+<td style="text-align: left;">0.224796</td>
+<td style="text-align: left;">0.977925</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">6</td>
+<td style="text-align: left;">Around the World</td>
+<td style="text-align: left;">0.274827</td>
+<td style="text-align: left;">0.997691</td>
+<td style="text-align: left;">0.129167</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="44">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">PyPlot</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># assuming your DataFrame is called "playlist_rqa"</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create a figure with three subplots</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> <span class="fu">subplots</span>(<span class="fl">1</span>, <span class="fl">3</span>, figsize<span class="op">=</span>(<span class="fl">12</span>, <span class="fl">4</span>))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># create a list of colors for each song</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">"C0"</span>, <span class="st">"C1"</span>, <span class="st">"C2"</span>, <span class="st">"C3"</span>, <span class="st">"C4"</span>, <span class="st">"C5"</span>, <span class="st">"C6"</span>, <span class="st">"C7"</span>, <span class="st">"C8"</span>, <span class="st">"C9"</span>]</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean values for RR in the first subplot</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">1</span>].<span class="fu">barh</span>(playlist_rqa.title, playlist_rqa.RR, color<span class="op">=</span>colors)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">1</span>].<span class="fu">set_title</span>(<span class="st">"RR"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean values for DET in the second subplot</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">2</span>].<span class="fu">barh</span>(playlist_rqa.title, playlist_rqa.DET, color<span class="op">=</span>colors)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">2</span>].<span class="fu">set_title</span>(<span class="st">"DET"</span>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">2</span>].<span class="fu">set_yticklabels</span>([])</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean values for ENTR in the third subplot</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">3</span>].<span class="fu">barh</span>(playlist_rqa.title, playlist_rqa.ENTR, color<span class="op">=</span>colors)</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">3</span>].<span class="fu">set_title</span>(<span class="st">"ENTR"</span>)</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">3</span>].<span class="fu">set_yticklabels</span>([])</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="co"># set the plot title and axis labels</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>fig.<span class="fu">suptitle</span>(<span class="st">"RQA Metrics by Song"</span>)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="co">#fig.text(0.04, 0.5, "Value", va="center", rotation="vertical")</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="co"># display the plot</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>sys:1: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="auto_recurrence_files/figure-html/cell-16-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>In this example, we’ve used song lyrics as a familiar gateway to build insights and intuitions about aRQA. The rhythmic patterns and recurring themes in music have allowed us to get a feel for the capabilities of recurrence analysis in an accessible manner. That said, you might easily build on this analysis, perhaps using aRQA measures as a basis for clustering songs into genres or artists for music recommendation. For aspiring songwriters or purveyors of music, understanding recurrent patterns in popular songs might provide insights into what makes a song catchy. Combined with other tools, aRQA could offer a deeper dive into the sentiment progression of a song, revealing how emotions ebb and flow throughout; and aRQA’s analytical cousin, cross-recurrence quantification analysis (see you at letter C, maybe) has been used to identify cover songs and plagiarism.</p>
+<p>Of course, the potential applications of this approach extend far beyond just lyrics. One can easily envision adapting this framework to a number of other use cases, from analyzing textual patterns in literature and historical documents to discerning behavioral trends in social networks, to predicting breakdowns in machines—including biological ones. The possibilities are endless.</p>
+<div class="cell" data-execution_count="15">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DynamicalSystems</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>all_track_info <span class="op">=</span> <span class="fu">DataFrame</span>()</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each row of the DataFrame</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> <span class="fu">eachrow</span>(song_data)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="fl">1</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">println</span>(i)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the artist name, original lyrics, and cleaned lyrics</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    artist <span class="op">=</span> row.artist</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    song <span class="op">=</span> row.title</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    key <span class="op">=</span> <span class="st">"</span><span class="sc">$</span>artist<span class="st"> - </span><span class="sc">$</span>song<span class="st">"</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    lyrics <span class="op">=</span> row.lyrics</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    genre <span class="op">=</span> row.tag</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    cleaned_lyrics <span class="op">=</span> <span class="fu">lyrics_cleaner</span>(lyrics)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># convert the cleaned lyrics to word numbers using the word_dict</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> <span class="fu">split</span>(cleaned_lyrics)</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create word_dictionary:</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    unique_words <span class="op">=</span> <span class="fu">unique</span>(words)</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    word_dict <span class="op">=</span> <span class="fu">Dict</span>(unique_words <span class="op">.=&gt;</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(unique_words))</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#word_num_list = Any[]</span></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>    word_num_list <span class="op">=</span> [word_dict[word] for word <span class="kw">in</span> words]</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>    RP <span class="op">=</span> <span class="fu">RecurrenceMatrix</span>(lyrics_series, radius);</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>    rqa_metrics <span class="op">=</span> <span class="fu">rqa</span>(RP; lmin <span class="op">=</span> <span class="fl">2</span>, thieller <span class="op">=</span> <span class="fl">0</span>) </span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>    RR <span class="op">=</span> rqa_metrics[<span class="op">:</span>RR]</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>    DET <span class="op">=</span> rqa_metrics[<span class="op">:</span>DET]</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>    ENTR <span class="op">=</span> rqa_metrics[<span class="op">:</span>ENTR]</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add the artist info to the Dict</span></span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>    all_track_info[key] <span class="op">=</span> <span class="fu">Dict</span>(<span class="st">"artist"</span> <span class="op">=&gt;</span> artist,</span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"title"</span> <span class="op">=&gt;</span> song,</span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"lyrics"</span> <span class="op">=&gt;</span> lyrics,</span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"genre"</span> <span class="op">=&gt;</span> genre,</span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"cleaned_lyrics"</span> <span class="op">=&gt;</span> cleaned_lyrics,</span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"word_series"</span> <span class="op">=&gt;</span> word_num_list,</span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"RR"</span> <span class="op">=&gt;</span> RR,</span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"DET"</span> <span class="op">=&gt;</span> DET,</span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"ENTR"</span> <span class="op">=&gt;</span> ENTR)</span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>1</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>LoadError: ArgumentError: syntax df[column] is not supported use df[!, column] instead</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">StatsBase</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DynamicalSystems</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>sample_rows <span class="op">=</span> <span class="fu">sample</span>(<span class="fl">1</span><span class="op">:</span><span class="fu">nrow</span>(song_data), <span class="fu">floor</span>(<span class="dt">Int</span>, <span class="fl">0.001</span> <span class="op">*</span> <span class="fu">nrow</span>(song_data)), replace<span class="op">=</span><span class="cn">false</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>sampled_df <span class="op">=</span> song_data[sample_rows, <span class="op">:</span>]</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># create an empty DataFrame with the desired column names</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>all_track_info <span class="op">=</span> <span class="fu">DataFrame</span>(artist<span class="op">=</span>[], title<span class="op">=</span>[], lyrics<span class="op">=</span>[], genre<span class="op">=</span>[], cleaned_lyrics<span class="op">=</span>[], RR<span class="op">=</span>[], DET<span class="op">=</span>[], ENTR<span class="op">=</span>[])</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="fl">0</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through each row of the DataFrame</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> row <span class="kw">in</span> <span class="fu">eachrow</span>(sampled_df)</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#i += 1</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#println(i)</span></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the artist name, original lyrics, and cleaned lyrics</span></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    artist <span class="op">=</span> row.artist</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>    song <span class="op">=</span> row.title</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>    key <span class="op">=</span> <span class="st">"</span><span class="sc">$</span>artist<span class="st"> - </span><span class="sc">$</span>song<span class="st">"</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>    lyrics <span class="op">=</span> row.lyrics</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    genre <span class="op">=</span> row.tag</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>    cleaned_lyrics <span class="op">=</span> <span class="fu">lyrics_cleaner</span>(lyrics)</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># convert the cleaned lyrics to word numbers using the word_dict</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> <span class="fu">split</span>(cleaned_lyrics)</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>    unique_words <span class="op">=</span> <span class="fu">unique</span>(words)</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>    word_dict <span class="op">=</span> <span class="fu">Dict</span>(unique_words <span class="op">.=&gt;</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(unique_words))</span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>    word_num_list <span class="op">=</span> [word_dict[word] for word <span class="kw">in</span> words]</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>    RP <span class="op">=</span> <span class="fu">RecurrenceMatrix</span>(word_num_list, radius);</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    rqa_metrics <span class="op">=</span> <span class="fu">rqa</span>(RP; lmin <span class="op">=</span> <span class="fl">2</span>, thieller <span class="op">=</span> <span class="fl">0</span>) </span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>    RR <span class="op">=</span> rqa_metrics[<span class="op">:</span>RR]</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>    DET <span class="op">=</span> rqa_metrics[<span class="op">:</span>DET]</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>    ENTR <span class="op">=</span> rqa_metrics[<span class="op">:</span>ENTR]</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>    RTE <span class="op">=</span> rqa_metrics[<span class="op">:</span>RTE]</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a new row for the DataFrame</span></span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>    new_row <span class="op">=</span> <span class="fu">DataFrame</span>(artist<span class="op">=</span>artist, title<span class="op">=</span>song, lyrics<span class="op">=</span>lyrics, genre<span class="op">=</span>genre, cleaned_lyrics<span class="op">=</span>cleaned_lyrics, RR<span class="op">=</span>RR, DET<span class="op">=</span>DET, ENTR<span class="op">=</span>ENTR)</span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># append the new row to the existing DataFrame</span></span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">append!</span>(all_track_info, new_row)</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a><span class="fu">delete!</span>(all_track_info, <span class="fu">isnan</span>.(all_track_info.RR))</span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a><span class="fu">delete!</span>(all_track_info, <span class="fu">isnan</span>.(all_track_info.DET))</span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a><span class="fu">delete!</span>(all_track_info, <span class="fu">isnan</span>.(all_track_info.ENTR))</span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="78">
+<div><div style="float: left;"><span>6×4 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
+<table class="data-frame table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header header">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Row</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">genre</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">RR_mean</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DET_mean</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">ENTR_mean</th>
+</tr>
+<tr class="odd subheader headerLastRow">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Any">Any</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">1</td>
+<td style="text-align: left;">rock</td>
+<td style="text-align: right;">0.023802</td>
+<td style="text-align: right;">0.467887</td>
+<td style="text-align: right;">1.1012</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">2</td>
+<td style="text-align: left;">rap</td>
+<td style="text-align: right;">0.0226218</td>
+<td style="text-align: right;">0.338412</td>
+<td style="text-align: right;">0.911964</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">3</td>
+<td style="text-align: left;">pop</td>
+<td style="text-align: right;">0.0255442</td>
+<td style="text-align: right;">0.481651</td>
+<td style="text-align: right;">1.1201</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">4</td>
+<td style="text-align: left;">misc</td>
+<td style="text-align: right;">0.0130123</td>
+<td style="text-align: right;">0.192187</td>
+<td style="text-align: right;">0.514266</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">5</td>
+<td style="text-align: left;">rb</td>
+<td style="text-align: right;">0.0230695</td>
+<td style="text-align: right;">0.476983</td>
+<td style="text-align: right;">1.16924</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">6</td>
+<td style="text-align: left;">country</td>
+<td style="text-align: right;">0.0257395</td>
+<td style="text-align: right;">0.40673</td>
+<td style="text-align: right;">1.03142</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>group_genre <span class="op">=</span> <span class="fu">groupby</span>(all_track_info,<span class="op">:</span>genre) </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>means_table <span class="op">=</span> <span class="fu">combine</span>(group_genre, <span class="op">:</span>RR <span class="op">=&gt;</span> mean, <span class="op">:</span>DET <span class="op">=&gt;</span> mean, <span class="op">:</span>ENTR <span class="op">=&gt;</span> mean)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>means_table <span class="op">=</span> <span class="pp">@chain</span> means_table <span class="cf">begin</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">@filter</span>(genre <span class="op">!=</span> <span class="st">"misc"</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="94">
+<div><div style="float: left;"><span>5×4 DataFrame</span></div><div style="clear: both;"></div></div><div class="data-frame" style="overflow-x: scroll;">
+<table class="data-frame table table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header header">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;">Row</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">genre</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">RR_mean</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">DET_mean</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">ENTR_mean</th>
+</tr>
+<tr class="odd subheader headerLastRow">
+<th class="rowNumber" data-quarto-table-cell-role="th" style="text-align: right; font-weight: bold;"></th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Any">Any</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th" title="Float64">Float64</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">1</td>
+<td style="text-align: left;">rock</td>
+<td style="text-align: right;">0.023802</td>
+<td style="text-align: right;">0.467887</td>
+<td style="text-align: right;">1.1012</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">2</td>
+<td style="text-align: left;">rap</td>
+<td style="text-align: right;">0.0226218</td>
+<td style="text-align: right;">0.338412</td>
+<td style="text-align: right;">0.911964</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">3</td>
+<td style="text-align: left;">pop</td>
+<td style="text-align: right;">0.0255442</td>
+<td style="text-align: right;">0.481651</td>
+<td style="text-align: right;">1.1201</td>
+</tr>
+<tr class="even">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">4</td>
+<td style="text-align: left;">rb</td>
+<td style="text-align: right;">0.0230695</td>
+<td style="text-align: right;">0.476983</td>
+<td style="text-align: right;">1.16924</td>
+</tr>
+<tr class="odd">
+<td class="rowNumber" style="text-align: right; font-weight: bold;">5</td>
+<td style="text-align: left;">country</td>
+<td style="text-align: right;">0.0257395</td>
+<td style="text-align: right;">0.40673</td>
+<td style="text-align: right;">1.03142</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">PyPlot</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># assuming your DataFrame is called "means_table"</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create a figure with three subplots</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> <span class="fu">subplots</span>(<span class="fl">1</span>, <span class="fl">3</span>, figsize<span class="op">=</span>(<span class="fl">12</span>, <span class="fl">4</span>))</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean values for RR in the first subplot</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">1</span>].<span class="fu">bar</span>(means_table.genre, means_table.RR_mean)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">1</span>].<span class="fu">set_title</span>(<span class="st">"RR"</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean values for DET in the second subplot</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">2</span>].<span class="fu">bar</span>(means_table.genre, means_table.DET_mean)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">2</span>].<span class="fu">set_title</span>(<span class="st">"DET"</span>)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the mean values for ENTR in the third subplot</span></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">3</span>].<span class="fu">bar</span>(means_table.genre, means_table.ENTR_mean)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="fl">3</span>].<span class="fu">set_title</span>(<span class="st">"ENTR"</span>)</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co"># set the plot title and axis labels</span></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>fig.<span class="fu">suptitle</span>(<span class="st">"Mean RQA Metrics by Genre"</span>)</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>fig.<span class="fu">text</span>(<span class="fl">0.5</span>, <span class="fl">0.04</span>, <span class="st">"Genre"</span>, ha<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>fig.<span class="fu">text</span>(<span class="fl">0.04</span>, <span class="fl">0.5</span>, <span class="st">"Mean Value"</span>, va<span class="op">=</span><span class="st">"center"</span>, rotation<span class="op">=</span><span class="st">"vertical"</span>)</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a><span class="co"># display the plot</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<p><img src="auto_recurrence_files/figure-html/cell-20-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

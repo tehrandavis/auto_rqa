@@ -1,0 +1,4 @@
+name = "auto_rqa"
+uuid = "d673a6a0-8fb5-4107-a248-7d5feaab7684"
+authors = ["Tehran Davis <tehran.davis@uc.edu>"]
+version = "0.1.0"
