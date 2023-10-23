@@ -1,0 +1,13 @@
+auto_rqa
+├─ README.md
+├─ data
+│  ├─ lyrics_series.csv
+│  └─ playlist_lyrics.csv
+├─ notebooks
+│  ├─ all_songs.ipynb
+│  └─ auto_recurrence.ipynb
+└─ src
+   ├─ .DS_Store
+   ├─ Manifest.toml
+   ├─ Project.toml
+   └─ auto_rqa.jl
