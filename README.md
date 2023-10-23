@@ -18,7 +18,7 @@ using CSV, # For reading CSV files
     Tidier, # For data wrangling
     StatsBase # For statistical functions
     DynamicalSystems # For calculating recurrence quantification analysis
-``      
+```      
 
 ## Repo Contents
 
