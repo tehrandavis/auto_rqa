@@ -21,7 +21,7 @@ using CSV, # For reading CSV files
 ```      
 
 ## Repo Contents
-
+```
 auto_rqa
 ├─ README.md
 ├─ data
@@ -34,6 +34,9 @@ auto_rqa
    ├─ Manifest.toml
    ├─ Project.toml
    └─ auto_rqa.jl
+```
+
+
    
    
 ## Usage
