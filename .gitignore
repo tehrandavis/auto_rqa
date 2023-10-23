@@ -8,3 +8,7 @@ auto_rqa
 
 .vscode
 
+
+.DS_Store
+
+*.html
